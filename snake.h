@@ -3,6 +3,15 @@
 #include <list>
 #ifndef SNAKE_H
 #define SNAKE_H
+
+enum Direction
+{
+LEFT,
+RIGHT,
+UP,
+DOWN
+};
+
 class Point
 {
 public:
@@ -11,8 +20,10 @@ public:
 
   Point(int _x, int _y, char* _sym);
   Point();
+//  Point(Point &p);
   
   void Draw();
+  void Move(int offset, Direction direction);
 };
 
 class Figure
@@ -36,5 +47,10 @@ public:
   VerticalLine(int yUp, int yDown, int x, char* sym);
 };
 
+class Snake : public Figure
+{
+public:
+  Snake(Point tail, int lenght, Direction direction);
+};
 
 #endif

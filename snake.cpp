@@ -14,6 +14,33 @@ Point::Point()
   sym=NULL;
 }
 
+/*
+Point::Point(Point &p)
+{
+  x=p.x;
+  y=p.y;
+  sym=p.sum;
+}
+*/
+
+void Point::Move(int offset, Direction direction)
+{
+  switch(direction){ 
+    case RIGHT:
+    x=x+offset;
+    break;
+    case LEFT:
+    x=x-offset;
+    break;
+    case UP:
+    y=y+offset;
+    break;
+    case DOWN:
+    y=y-offset;
+    break;
+  }
+}
+
 void Point::Draw()
 {
   move(y,x);
@@ -48,4 +75,14 @@ void Figure::Draw()
 {
   for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
       it->Draw();
+}
+
+Snake::Snake(Point tail, int lenght, Direction direction):Figure()
+{
+  for(int i = 0; i<lenght; i++)
+  {
+    Point p=tail;
+    p.Move(i, direction);
+    pList.push_back (p);
+  }
 }

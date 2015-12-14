@@ -1,2 +1,4 @@
 # ignore generated files:
-a.out
+snake
+*.d
+*.o

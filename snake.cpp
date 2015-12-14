@@ -33,10 +33,10 @@ void Point::Move(int offset, Direction direction)
     x=x-offset;
     break;
     case UP:
-    y=y+offset;
+    y=y-offset;
     break;
     case DOWN:
-    y=y-offset;
+    y=y+offset;
     break;
   }
 }

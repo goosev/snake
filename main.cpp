@@ -6,9 +6,13 @@
 int main(int argc, char *argv[])
 {
 
+  int c;
 
   initscr();
   curs_set(0);
+  noecho();
+  keypad(stdscr, true);
+  halfdelay(1); //Устанавливаем ограничение по времени ожидания getch() в 0.1 сек
 
   HorizontalLine *upLine = new HorizontalLine(0,78,0,"+");
   HorizontalLine *downLine = new HorizontalLine(0,78,24,"+");
@@ -22,13 +26,28 @@ int main(int argc, char *argv[])
   Point p=Point(4,5,"*");
   Snake *snake = new Snake(p,4,RIGHT);
   snake->Draw();
-  for (int i=0;i<50;i++)
+  while((c=getch())!=27)
   {
+    switch(c)
+    {
+     case ERR:
+        break;
+      case KEY_LEFT:
+        snake->direction=LEFT;
+      break;
+      case KEY_RIGHT:
+        snake->direction=RIGHT;
+      break;
+      case KEY_UP:
+        snake->direction=UP;
+      break;
+      case KEY_DOWN:
+        snake->direction=DOWN;
+      break;
+    }
     snake->Move();
-    usleep(100000);
     refresh();
   }
-
   refresh();
   getch();
   endwin();

@@ -1,18 +1,25 @@
 #include <iostream>
 #include <ncurses.h>
+#include <list>
 #include "snake.h"
 
 int main(int argc, char *argv[])
 {
 
-  Point *p1=new Point(1,3,"*");
-  Point *p2=new Point(4,5,"#");
-
-
+  Point p1=Point(1,3,"*");
+  Point p2=Point(4,5,"#");
+  
+  std::list<Point> pList;
+  pList.push_back (p1);
+  pList.push_back (p2);
+  
+  
   initscr();
   curs_set(0);
-  p1->Draw();
-  p2->Draw();
+
+  for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
+    it->Draw();
+
   refresh();
   getch();
   endwin();

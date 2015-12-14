@@ -47,6 +47,12 @@ void Point::Draw()
   printw(sym);
 }
 
+void Point::Clear()
+{
+  sym=" ";
+  Draw();
+}
+
 HorizontalLine::HorizontalLine(int xLeft, int xRight, int y, char* sym):Figure()
 {
   for(int x = xLeft; x<=xRight; x++)
@@ -77,12 +83,33 @@ void Figure::Draw()
       it->Draw();
 }
 
-Snake::Snake(Point tail, int lenght, Direction direction):Figure()
+Snake::Snake(Point tail, int lenght, Direction _direction):Figure()
 {
+  direction=_direction;
   for(int i = 0; i<lenght; i++)
   {
     Point p=tail;
     p.Move(i, direction);
     pList.push_back (p);
   }
+}
+
+void Snake::Move()
+{
+  Point tail = pList.front();
+  pList.pop_front();
+  Point head=GetNextPoint();
+  pList.push_back(head);
+  
+  head.Draw();
+  tail.Clear();
+  
+}
+
+Point Snake::GetNextPoint()
+{
+  Point head=pList.back();
+  Point nextPoint = head;
+  nextPoint.Move(1, direction);
+  return nextPoint;
 }

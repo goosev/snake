@@ -23,6 +23,7 @@ public:
 //  Point(Point &p);
   
   void Draw();
+  void Clear();
   void Move(int offset, Direction direction);
 };
 
@@ -50,7 +51,10 @@ public:
 class Snake : public Figure
 {
 public:
-  Snake(Point tail, int lenght, Direction direction);
+  Snake(Point tail, int lenght, Direction _direction);
+  void Move();
+  Point GetNextPoint();
+  Direction direction;
 };
 
 #endif

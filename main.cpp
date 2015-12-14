@@ -22,6 +22,12 @@ int main(int argc, char *argv[])
   Point p=Point(4,5,"*");
   Snake *snake = new Snake(p,4,RIGHT);
   snake->Draw();
+  for (int i=0;i<50;i++)
+  {
+    snake->Move();
+    usleep(100000);
+    refresh();
+  }
 
   refresh();
   getch();

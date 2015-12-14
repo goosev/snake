@@ -20,7 +20,7 @@ void Point::Draw()
   printw(sym);
 }
 
-HorizontalLine::HorizontalLine(int xLeft, int xRight, int y, char* sym)
+HorizontalLine::HorizontalLine(int xLeft, int xRight, int y, char* sym):Figure()
 {
   for(int x = xLeft; x<=xRight; x++)
   {
@@ -28,13 +28,8 @@ HorizontalLine::HorizontalLine(int xLeft, int xRight, int y, char* sym)
     pList.push_back (p);
   }
 }
-void HorizontalLine::Draw()
-{
-  for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
-      it->Draw();
-}
 
-VerticalLine::VerticalLine(int yUp, int yDown, int x, char* sym)
+VerticalLine::VerticalLine(int yUp, int yDown, int x, char* sym):Figure()
 {
   for(int y = yUp; y<=yDown; y++)
   {
@@ -43,7 +38,13 @@ VerticalLine::VerticalLine(int yUp, int yDown, int x, char* sym)
   }
 
 }
-void VerticalLine::Draw()
+
+Figure::Figure()
+{
+  ;
+}
+
+void Figure::Draw()
 {
   for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
       it->Draw();

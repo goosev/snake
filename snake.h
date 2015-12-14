@@ -15,22 +15,26 @@ public:
   void Draw();
 };
 
-class HorizontalLine
+class Figure
+{
+public:
+  Figure();
+  std::list<Point> pList;
+  void Draw();
+};
+
+class HorizontalLine : public Figure
 {
 public:
   HorizontalLine(int xLeft, int xRight, int y, char* sym);
-  std::list<Point> pList;
 
-  void Draw();
 };
 
-class VerticalLine
+class VerticalLine : public Figure
 {
 public:
   VerticalLine(int yUp, int yDown, int x, char* sym);
-  std::list<Point> pList;
-
-  void Draw();
 };
+
 
 #endif

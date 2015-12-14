@@ -6,7 +6,10 @@ class Point
 public:
   int x,y;
   char* sym;
-
+  Point()
+  {
+  }
+  
   void Point::Draw()
   {
     move(y,x);
@@ -19,21 +22,21 @@ public:
 int main(int argc, char *argv[])
 {
 
-  Point p1;
-  p1.x=1;
-  p1.y=3;
-  p1.sym="*";
+  Point *p1=new Point();
+  p1->x=1;
+  p1->y=3;
+  p1->sym="*";
 
-  Point p2;
-  p2.x=4;
-  p2.y=5;
-  p2.sym="#";
+  Point *p2=new Point();
+  p2->x=4;
+  p2->y=5;
+  p2->sym="#";
   
   
   initscr();
   curs_set(0);
-  p1.Draw();
-  p2.Draw();
+  p1->Draw();
+  p2->Draw();
   refresh();
   getch();
   endwin();

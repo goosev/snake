@@ -28,28 +28,10 @@ int main(int argc, char *argv[])
   snake->Draw();
   while((c=getch())!=27)
   {
-    switch(c)
-    {
-     case ERR:
-        break;
-      case KEY_LEFT:
-        snake->direction=LEFT;
-      break;
-      case KEY_RIGHT:
-        snake->direction=RIGHT;
-      break;
-      case KEY_UP:
-        snake->direction=UP;
-      break;
-      case KEY_DOWN:
-        snake->direction=DOWN;
-      break;
-    }
+    snake->HandleKey(c);
     snake->Move();
     refresh();
   }
-  refresh();
-  getch();
   endwin();
 
   return 0;

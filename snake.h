@@ -55,6 +55,7 @@ public:
   void Move();
   Point GetNextPoint();
   Direction direction;
+  void HandleKey(int c);
 };
 
 #endif

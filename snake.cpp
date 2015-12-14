@@ -113,3 +113,24 @@ Point Snake::GetNextPoint()
   nextPoint.Move(1, direction);
   return nextPoint;
 }
+
+void  Snake::HandleKey(int c)
+{
+  switch(c)
+  {
+    case ERR:
+    break;
+    case KEY_LEFT:
+      direction=LEFT;
+    break;
+    case KEY_RIGHT:
+      direction=RIGHT;
+    break;
+    case KEY_UP:
+      direction=UP;
+    break;
+    case KEY_DOWN:
+      direction=DOWN;
+    break;
+  }
+}

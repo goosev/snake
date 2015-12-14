@@ -1,26 +1,39 @@
 #include <iostream>
 #include <ncurses.h>
 
-static void Draw(int x, int y, char* sym)
+class Point
 {
-  mvprintw(y,x,sym);
-}
+public:
+  int x,y;
+  char* sym;
+
+  void Point::Draw()
+  {
+    move(y,x);
+    printw(sym);
+  }
+
+};
+        
 
 int main(int argc, char *argv[])
 {
-  int x1=1;
-  int y1=3;
-  char* sym1="*";
 
-  int x2=4;
-  int y2=5;
-  char* sym2="#";
+  Point p1;
+  p1.x=1;
+  p1.y=3;
+  p1.sym="*";
+
+  Point p2;
+  p2.x=4;
+  p2.y=5;
+  p2.sym="#";
   
   
   initscr();
   curs_set(0);
-  Draw(x1,y1, sym1);
-  Draw(x2,y2, sym2);
+  p1.Draw();
+  p2.Draw();
   refresh();
   getch();
   endwin();

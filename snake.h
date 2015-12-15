@@ -37,6 +37,10 @@ public:
   Figure();
   std::list<Point> pList;
   void Draw();
+//protected:
+  bool IsHit(Figure figure);
+private:
+  bool IsHit(Point point);
 };
 
 class HorizontalLine : public Figure
@@ -60,8 +64,10 @@ public:
   Point GetNextPoint();
   void HandleKey(int c);
   bool Eat(Point food);
+  bool IsHitTail();
 protected:
   Direction direction;
+
   
 };
 
@@ -75,5 +81,14 @@ public:
   Point CreateFood();
   int iSecret;
  
+};
+
+class Walls
+{
+public:
+  Walls(int mapWidth, int mapHeight);
+  std::list<Figure> wallList;
+  void Draw();
+  bool IsHit(Figure figure);
 };
 #endif

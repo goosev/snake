@@ -7,23 +7,19 @@ int main(int argc, char *argv[])
 {
 
   int c;
-
+  int maxheight;
+  int maxwidth;
   initscr();
   curs_set(0);
   noecho();
   keypad(stdscr, true);
   halfdelay(1); //Устанавливаем ограничение по времени ожидания getch() в 0.1 сек
+//  nodelay(stdscr, true);//Отключаем ограничение по времени ожидания getch()
+  getmaxyx(stdscr,maxheight, maxwidth);
 
-  char border_sym[] = "+";
-  HorizontalLine *upLine = new HorizontalLine(0,78,0,border_sym);
-  HorizontalLine *downLine = new HorizontalLine(0,78,24,border_sym);
-  VerticalLine *leftLine = new VerticalLine(0,24,0,border_sym);
-  VerticalLine *rightLine = new VerticalLine(0,24,78,border_sym);
-  upLine->Draw();
-  downLine->Draw();
-  leftLine->Draw();
-  rightLine->Draw();
-
+  Walls *walls = new Walls(maxwidth,maxheight);
+  walls->Draw();
+  
   char snake_sym[] = "*";
   Point p=Point(4,5,snake_sym);
   Snake *snake = new Snake(p,4,RIGHT);
@@ -36,6 +32,8 @@ int main(int argc, char *argv[])
   
   while((c=getch())!=27)
   {
+    if(walls->IsHit(*snake)||snake->IsHitTail())
+      break;
     if(snake->Eat(food))
     {
       food=foodCreator->CreateFood();

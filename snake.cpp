@@ -86,7 +86,23 @@ Figure::Figure()
 void Figure::Draw()
 {
   for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
-      it->Draw();
+    it->Draw();
+}
+
+bool Figure::IsHit(Figure figure)
+{
+  for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
+    if(figure.IsHit(*it))
+      return true;
+  return false;
+}
+
+bool Figure::IsHit(Point point)
+{
+  for (std::list<Point>::iterator it = pList.begin(); it != pList.end(); it++)
+    if(it->IsHit(point))
+      return true;
+  return false;
 }
 
 Snake::Snake(Point tail, int lenght, Direction _direction):Figure()
@@ -154,6 +170,19 @@ void  Snake::HandleKey(int c)
   }
 }
 
+bool Snake::IsHitTail()
+{
+  Point head=pList.back();
+/*  for (int i=0; i<pList.size(); i++)
+    if(head.IsHit(pList[i]))
+      return true;*/
+  for (std::list<Point>::iterator it = pList.begin(); it != --pList.end(); it++)
+    if(head.IsHit(*it))
+      return true;
+
+  return false;
+}
+
 FoodCreator::FoodCreator(int _mapWidth, int _mapHeight, char* _sym)
 {
   mapWidth=_mapWidth;
@@ -169,3 +198,31 @@ Point FoodCreator::CreateFood()
   int y = rand()%(mapHeight-2) + 1;;
   return Point(x,y,sym);
 }
+
+Walls::Walls(int mapWidth, int mapHeight)
+{
+  char border_sym[] = "+";
+  HorizontalLine upLine = HorizontalLine(0, mapWidth-2, 0, "+");
+  HorizontalLine downLine = HorizontalLine(0, mapWidth-2, mapHeight-1, "+");
+  VerticalLine leftLine = VerticalLine(0, mapHeight-1, 0, "+");
+  VerticalLine rightLine = VerticalLine(0, mapHeight-1, mapWidth-2, "+");
+  wallList.push_back(upLine);
+  wallList.push_back(downLine);
+  wallList.push_back(leftLine);
+  wallList.push_back(rightLine);
+
+}
+
+bool Walls::IsHit(Figure figure)
+{
+  for (std::list<Figure>::iterator it = wallList.begin(); it != wallList.end(); it++)
+    if(it->IsHit(figure))
+      return true;
+  return false;
+}
+void Walls::Draw()
+{
+  for (std::list<Figure>::iterator it = wallList.begin(); it != wallList.end(); it++)
+    it->Draw();
+}
+

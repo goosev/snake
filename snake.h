@@ -1,6 +1,9 @@
 #include <ncurses.h>
 #include <iostream>
 #include <list>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #ifndef SNAKE_H
 #define SNAKE_H
 
@@ -25,6 +28,7 @@ public:
   void Draw();
   void Clear();
   void Move(int offset, Direction direction);
+  bool IsHit(Point p);
 };
 
 class Figure
@@ -54,8 +58,22 @@ public:
   Snake(Point tail, int lenght, Direction _direction);
   void Move();
   Point GetNextPoint();
-  Direction direction;
   void HandleKey(int c);
+  bool Eat(Point food);
+protected:
+  Direction direction;
+  
 };
 
+class FoodCreator
+{
+public:
+  int mapWidth;
+  int mapHeight;
+  char* sym;
+  FoodCreator(int _mapWidth, int _mapHeight, char* _sym);
+  Point CreateFood();
+  int iSecret;
+ 
+};
 #endif

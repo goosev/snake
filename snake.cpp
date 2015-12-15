@@ -49,8 +49,14 @@ void Point::Draw()
 
 void Point::Clear()
 {
-  sym=" ";
+  char clear_sym[]=" ";
+  sym=clear_sym;
   Draw();
+}
+
+bool Point::IsHit(Point p)
+{
+  return x==p.x && y==p.y;
 }
 
 HorizontalLine::HorizontalLine(int xLeft, int xRight, int y, char* sym):Figure()
@@ -114,6 +120,19 @@ Point Snake::GetNextPoint()
   return nextPoint;
 }
 
+bool Snake::Eat(Point food)
+{
+  Point head=GetNextPoint();
+  if(head.IsHit(food))
+  {
+    food.sym=head.sym;
+    pList.push_back(food);
+    return true;
+  }
+  else
+    return false;
+}
+
 void  Snake::HandleKey(int c)
 {
   switch(c)
@@ -133,4 +152,20 @@ void  Snake::HandleKey(int c)
       direction=DOWN;
     break;
   }
+}
+
+FoodCreator::FoodCreator(int _mapWidth, int _mapHeight, char* _sym)
+{
+  mapWidth=_mapWidth;
+  mapHeight=_mapHeight;
+  sym=_sym;
+
+  srand (time(NULL));
+}
+
+Point FoodCreator::CreateFood()
+{
+  int x = rand()%(mapWidth-2) + 1;;
+  int y = rand()%(mapHeight-2) + 1;;
+  return Point(x,y,sym);
 }
